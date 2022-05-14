@@ -1,6 +1,3 @@
-# Conversion-Raman-cross-sections
-Set of python functions to aid in converting Raman cross-section values including unit conversion
-
 
 ## Available functions
 
@@ -18,7 +15,9 @@ Set of python functions to aid in converting Raman cross-section values includin
       convert_RCS_au_to_Angstrom(RCS)
 ```
 
+---
 
-## References
 
-Specific references are defined in the body of the functions.
+## Requirements
+
+`Python3`

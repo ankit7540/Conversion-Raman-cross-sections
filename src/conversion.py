@@ -81,3 +81,47 @@ def differential_to_total_RCS(dep_ratio, diffRCS):
     return (8* pi/3) * ((1+2*dep_ratio)/(1+dep_ratio)) * (diffRCS)
 
 ###################################################################
+
+def convert_RCS_au_to_cm6(RCS):
+    '''
+    To convert Raman cross-section defined in atomic units{^2}
+    to cm^{6}
+
+    Ref.
+        IUPAC Green book (Physical constants)
+        https://iupac.org/what-we-do/books/greenbook/
+    '''
+    conv_au_cm3=1.481847096e-25
+
+    return RCS * (conv_au_cm3**2)
+
+###################################################################
+
+def convert_RCS_au_to_SI(RCS):
+    '''
+    To convert Raman cross-section defined in atomic units^2
+    to SI unit defined in C^{2}m^{2}J^{-1}
+
+    Ref.
+        IUPAC Green book (Physical constants)
+        https://iupac.org/what-we-do/books/greenbook/
+    '''
+    conv_au_SI = 1.648777254e-41
+
+    return RCS * (conv_au_SI**2)
+
+###################################################################
+
+def convert_RCS_au_to_Angstrom(RCS):
+    '''
+    To convert Raman cross-section defined in atomic units^2
+    to Angstrom^{6}
+
+    Ref.
+        IUPAC Green book (Physical constants)
+        https://iupac.org/what-we-do/books/greenbook/
+    '''
+    conv_au_A = 1.481847096e-1
+
+    return RCS * (conv_au_A**2)
+###################################################################
