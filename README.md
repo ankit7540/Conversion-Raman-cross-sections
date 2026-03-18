@@ -1,5 +1,6 @@
 # Conversion-Raman-cross-sections
-Set of python functions to aid in converting Raman cross-section values including unit conversion
+Set of python functions to aid in converting Raman cross-section values including unit conversion.
+Probably the most useful function is to get the Raman cross-section at different wavelengths, useful for comparison of literature data.
 
 
 ## Available functions
