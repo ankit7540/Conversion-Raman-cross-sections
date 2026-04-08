@@ -1,6 +1,27 @@
 
 
 
+#-----------------------------------------------------------
+## for the multiplicatve factor to convert 
+##  Raman cross-section acquired from photon-counting measure 
+##  and for which reference was computed using \nu_{s}^{3}\nu_{0}
+
+##  to power/incident irradiance measure
+
+def RCS_conv_factor_photonCount_to_power(freq, laser_nm):
+    
+   """
+   input args : freq  = 1034 , laser_nm = 532.2 
+   then
+   RCS_conv_factor_photonCount_to_power(1034, 532.2 )
+   
+   """
+   nu_0 = (1e7/ laser_nm )
+   nu_s = (1e7/ laser_nm ) - freq
+   return (nu_s / nu_0)
+#-----------------------------------------------------------
+
+
 ###################################################################
 
 def RCS_interpolate_to_wavelength( RCS, freq , lambda_org, lambda_interp):
