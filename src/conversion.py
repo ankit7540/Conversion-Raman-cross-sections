@@ -1,6 +1,4 @@
 
-
-
 #-----------------------------------------------------------
 ## for the multiplicatve factor to convert 
 ##  Raman cross-section acquired from photon-counting measure 
@@ -14,6 +12,9 @@ def RCS_conv_factor_photonCount_to_power(freq, laser_nm):
    input args : freq  = 1034 , laser_nm = 532.2 
    then
    RCS_conv_factor_photonCount_to_power(1034, 532.2 )
+   for 1034 cm-1 Raman peak.
+
+   Freq : positive for Stokes, negative for anti-Stokes
    
    """
    nu_0 = (1e7/ laser_nm )
@@ -71,6 +72,8 @@ def localField_corr(n_exc, n_sc):
         Eckhardt & Wagner   :  https://doi.org/10.1016/0022-2852(66)90262-1
         Abe, Wakayama & Ito :   https://doi.org/10.1002/jrs.1250060109
 
+    # typical value : ~4 for benzene with 532 nm
+                      ~3.29 for cyclohexane with 532 nm 
     '''
 
     val_exc = ((n_exc**2)+2)
