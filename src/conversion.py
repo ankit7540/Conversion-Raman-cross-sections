@@ -1,5 +1,7 @@
 
-#-----------------------------------------------------------
+###################################################################
+###################################################################
+
 ## for the multiplicatve factor to convert 
 ##  Raman cross-section acquired from photon-counting measure 
 ##  and for which reference was computed using \nu_{s}^{3}\nu_{0}
@@ -20,12 +22,13 @@ def RCS_conv_factor_photonCount_to_power(freq, laser_nm):
    nu_0 = (1e7/ laser_nm )
    nu_s = (1e7/ laser_nm ) - freq
    return (nu_s / nu_0)
-#-----------------------------------------------------------
-
 
 ###################################################################
+###################################################################
 
-def RCS_interpolate_to_wavelength( RCS, freq , lambda_org, lambda_interp):
+# Described for photon-counting measurements
+
+def RCS_interpolate_to_wavelength_PhotonCounting( RCS, freq , lambda_org, lambda_interp):
     '''
     To convert a given Raman cross-section measured at a wavelength value to
     approximate value for a different excitation laser
@@ -37,6 +40,11 @@ def RCS_interpolate_to_wavelength( RCS, freq , lambda_org, lambda_interp):
             for example, 992.3
     lambda_org = wavelength in nm, for the excitation laser
     lambda_interp = wavelength in nm, for the laser at which we want to approximate the Raman Cross-section
+
+
+    Example : RCS_interpolate_to_wavelength_PhotonCounting( 2.5,        992.3 ,             488.0,                   532)
+                                                           RCS value, freq of transition, laser in nm (source), laser in nm (target)
+
     '''
     # --------------
     # compute freq_factor for original wavelength
@@ -53,11 +61,56 @@ def RCS_interpolate_to_wavelength( RCS, freq , lambda_org, lambda_interp):
 
     freq_factor_interp = wavenum_interp * (wavenum_interp_sc**3)
 
-    print (" Scaling factor : ", ((1 / freq_factor) * freq_factor_interp) )
+    print ("\t\tScaling factor : ", ((1 / freq_factor) * freq_factor_interp) )
 
     return RCS * (1/freq_factor) * freq_factor_interp
 
 ###################################################################
+###################################################################
+
+# Described for power/irradiance measurements
+
+def RCS_interpolate_to_wavelength_power( RCS, freq , lambda_org, lambda_interp):
+    '''
+    To convert a given Raman cross-section measured at a wavelength value to
+    approximate value for a different excitation laser
+
+    Input params :
+    RCS = value of Raman cross-section , for example, 1.0e-30 or
+                                         scaled value like 1.0
+    freq = vibrational frequency of the specific transition 
+        (in relative wavenumbers)
+            for example, 992.3
+    lambda_org = wavelength in nm, for the excitation laser
+    lambda_interp = wavelength in nm, for the laser at which
+                we want to approximate the Raman Cross-section
+
+    Described for power/irradiance measurement
+
+    Example : RCS_interpolate_to_wavelength_PhotonCounting( 2.5,        992.3 ,             488.0,                   532)
+                                                           RCS value, freq of transition, laser in nm (source), laser in nm (target)    
+    '''
+    # --------------
+    # compute freq_factor for original wavelength
+    wavenum_laser = 1e7/lambda_org
+    wavenum_sc = wavenum_laser - freq
+
+    freq_factor =  (wavenum_sc**4)
+
+    # --------------
+    # compute freq_factor for the new wavelength
+    wavenum_interp = 1e7/lambda_interp
+    wavenum_interp_sc = wavenum_interp - freq
+
+    freq_factor_interp = (wavenum_interp_sc**4)
+
+    print ("\t\tScaling factor : ", ((1 / freq_factor) * freq_factor_interp) )
+
+    return RCS * (1/freq_factor) * freq_factor_interp
+
+###################################################################
+###################################################################
+
 
 def localField_corr(n_exc, n_sc):
     '''To compute the local-field correction factor for ref. indices at given specific
@@ -82,7 +135,7 @@ def localField_corr(n_exc, n_sc):
 
 
 ###################################################################
-
+###################################################################
 
 def differential_to_total_RCS(dep_ratio, diffRCS):
     '''
@@ -105,6 +158,7 @@ def differential_to_total_RCS(dep_ratio, diffRCS):
     return (8* pi/3) * ((1+2*dep_ratio)/(1+dep_ratio)) * (diffRCS)
 
 ###################################################################
+###################################################################
 
 def convert_RCS_au_to_cm6(RCS):
     '''
@@ -119,6 +173,7 @@ def convert_RCS_au_to_cm6(RCS):
 
     return RCS * (conv_au_cm3**2)
 
+###################################################################
 ###################################################################
 
 def convert_RCS_au_to_SI(RCS):
@@ -135,6 +190,7 @@ def convert_RCS_au_to_SI(RCS):
     return RCS * (conv_au_SI**2)
 
 ###################################################################
+###################################################################
 
 def convert_RCS_au_to_Angstrom(RCS):
     '''
@@ -148,4 +204,6 @@ def convert_RCS_au_to_Angstrom(RCS):
     conv_au_A = 1.481847096e-1
 
     return RCS * (conv_au_A**2)
+
+###################################################################
 ###################################################################
