@@ -207,3 +207,23 @@ def convert_RCS_au_to_Angstrom(RCS):
 
 ###################################################################
 ###################################################################
+
+
+## SET OF FUNCTIONS FOR UNIT CONVERSION OF POLARIZABILITY
+
+def convert_polarizability_Angstrom3_to_SI(alpha):
+    """
+    Convert polarizability volume from Angstrom^3
+    to SI electric dipole polarizability (C m^2 / V).
+    
+    >> This is for polarizability component. << 
+    """
+    
+    conv_au_A = 1.481847096e-1
+    conv_au_SI = 1.648777254e-41
+    
+    conv_A3_SI = (  conv_au_SI / conv_au_A )
+    return alpha * conv_A3_SI
+
+###################################################################
+###################################################################
